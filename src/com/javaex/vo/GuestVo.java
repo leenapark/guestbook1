@@ -12,17 +12,21 @@ public class GuestVo {
 	// 생성자
 	public GuestVo() {
 	}
-	
 
-	public GuestVo(int no) {
-		this.no = no;
+	
+	
+	public GuestVo(String password) {
+		this.password = password;
 	}
+
+
 
 	public GuestVo(int no, String password) {
 		this.no = no;
 		this.password = password;
 	}
 
+	
 
 	public GuestVo(String name, String password, String content) {
 		this.name = name;
@@ -30,6 +34,8 @@ public class GuestVo {
 		this.content = content;
 	}
 
+
+	/**********리스트 생성자***********/
 	public GuestVo(int no, String name, String password, String content, String regDate) {
 		this.no = no;
 		this.name = name;
@@ -38,6 +44,7 @@ public class GuestVo {
 		this.regDate = regDate;
 	}
 
+	
 	// 메소드 g/s
 
 	public int getNo() {

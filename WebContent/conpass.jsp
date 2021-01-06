@@ -8,6 +8,7 @@
 	
 	GuestDao guestDao = new GuestDao();
 	GuestVo guestVo = new GuestVo();
+	
 %>
 
 

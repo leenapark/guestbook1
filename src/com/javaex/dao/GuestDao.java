@@ -113,7 +113,7 @@ public class GuestDao {
 			query += "		  name, ";
 			query += "		  password,";
 			query += "		  content, ";
-			query += "		  to_char(reg_date, 'YYYY-MM-DD HH:MI:SS') regDate ";
+			query += "		  to_char(reg_date, 'YYYY-MM-DD HH24:mi:ss') reg_date "; //시간 설정 찾아보기
 			query += " from guestbook";
 
 			// 쿼리문 만들기
@@ -126,8 +126,8 @@ public class GuestDao {
 				String name = rs.getString("name");
 				String password = rs.getString("password");
 				String content = rs.getString("content");
-				String regDate = rs.getString("regDate");
-
+				String regDate = rs.getString("reg_date");
+				
 				GuestVo vo = new GuestVo(no, name, password, content, regDate);
 				list.add(vo);
 			}
@@ -174,8 +174,9 @@ public class GuestDao {
 		return count;
 	}
 
+	
 	// **********비밀 번호 확인**********
-	public GuestVo getPass(int no) {
+	public GuestVo getPass(int no, String pass) {
 		GuestVo guestVo = null;
 		
 		getconnection();
@@ -195,8 +196,8 @@ public class GuestDao {
 
 			// 쿼리문 만들기
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, guestVo.getNo());
-			pstmt.setString(2, guestVo.getPassword());
+			pstmt.setInt(1, no);
+			pstmt.setString(2, pass);
 			
 			rs = pstmt.executeQuery();
 
@@ -216,4 +217,49 @@ public class GuestDao {
 
 		return guestVo;
 	}
+	
+	
+	/**************비밀번호 정보 가져오기************/
+	public GuestVo getInfo(int no) {
+		GuestVo guestVo = null;
+		
+		getconnection();
+		
+		try {
+			// 3. SQL문 준비 / 바인딩 / 실행
+
+				String query = "";
+	
+				query += " select password ";
+				query += " from guestbook ";
+				query += " where no = ? ";
+				
+				//System.out.println(query);
+
+				// 쿼리문 만들기
+				pstmt = conn.prepareStatement(query);
+				pstmt.setInt(1, no);
+				
+				rs = pstmt.executeQuery();
+
+				// 4.결과 처리
+				while(rs.next()) {
+					
+					String password = rs.getString("password");
+
+					guestVo = new GuestVo(password);
+				
+				}
+				
+				} catch (SQLException e) {
+							System.out.println("error:" + e);
+						}
+
+				close();
+				
+				return guestVo;
+	}
+	
+	
+	
 }
