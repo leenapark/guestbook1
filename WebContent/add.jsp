@@ -3,6 +3,7 @@
 <%@ page import="com.javaex.vo.GuestVo" %>
 
 <%
+	
 
 	String name = request.getParameter("name");
 	String password = request.getParameter("password");
