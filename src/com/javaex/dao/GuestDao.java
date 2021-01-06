@@ -75,7 +75,7 @@ public class GuestDao {
 
 			String query = "";
 			query += " insert into guestbook ";
-			query += " values(seq_no.nextval, ?, ?, ?, TO_DATE(SYSDATE))";
+			query += " values(seq_no.nextval, ?, ?, ?, TO_DATE(SYSDATE)) ";
 
 			System.out.println(query);
 
@@ -175,10 +175,11 @@ public class GuestDao {
 	}
 
 	// **********비밀 번호 확인**********
-	public String getPass(int no) {
-		String word = "";
+	public GuestVo getPass(int no) {
+		GuestVo guestVo = null;
 		
 		getconnection();
+
 		
 		try {
 			// 3. SQL문 준비 / 바인딩 / 실행
@@ -188,18 +189,23 @@ public class GuestDao {
 			query += "		  password";			
 			query += " from guestbook ";
 			query += " where no = ? ";
+			query += " and password = ?";
 			
 			//System.out.println(query);
 
 			// 쿼리문 만들기
 			pstmt = conn.prepareStatement(query);
-			pstmt.setInt(1, no);
+			pstmt.setInt(1, guestVo.getNo());
+			pstmt.setString(2, guestVo.getPassword());
+			
 			rs = pstmt.executeQuery();
 
 			// 4.결과처리
 			while(rs.next()) {
-				word = rs.getString(1);
-				int num = rs.getInt(no);
+				int num = rs.getInt("no");
+				String word = rs.getString("password");
+
+				guestVo = new GuestVo(num, word);
 			}
 
 		} catch (SQLException e) {
@@ -208,6 +214,6 @@ public class GuestDao {
 
 		close();
 
-		return word;
+		return guestVo;
 	}
 }
