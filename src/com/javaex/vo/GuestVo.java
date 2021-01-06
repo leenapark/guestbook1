@@ -13,14 +13,22 @@ public class GuestVo {
 	public GuestVo() {
 	}
 	
-	
+
+	public GuestVo(int no) {
+		this.no = no;
+	}
+
+	public GuestVo(int no, String password) {
+		this.no = no;
+		this.password = password;
+	}
+
+
 	public GuestVo(String name, String password, String content) {
 		this.name = name;
 		this.password = password;
 		this.content = content;
 	}
-
-
 
 	public GuestVo(int no, String name, String password, String content, String regDate) {
 		this.no = no;
