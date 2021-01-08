@@ -31,8 +31,6 @@
 	System.out.println("=======================");
 	
 	
-
-
 	
 	//기존 패스워드와 비교
 		if(vo.getPassword().equals(password)) {
@@ -45,7 +43,7 @@
 			*/
 			response.sendRedirect("./addList.jsp");
 			
-		}else{
+		}else {
 			
 			response.sendRedirect("./addList.jsp");
 			
@@ -53,14 +51,3 @@
 	
 
 %>
-
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
-	
-</body>
-</html>
